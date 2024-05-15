@@ -1,0 +1,8 @@
+name: cycleGAN
+dependencies:
+  - python>=3.10
+  - pytorch>=2.*
+  - torchvision>=0.5.*
+  - dominate>=2.4.*
+  - visdom>=0.1.8.*
+  - wandb
