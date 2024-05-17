@@ -6,7 +6,7 @@ import os
 class Options:
     data_root: str = field(init=False)
     isTrain: bool = False
-    model_name: str = "pajama-fy"
+    model_name: str = "selfie2anime"
     device: str = "mps"
 
     lambda_identity: float = 0.5
@@ -32,7 +32,7 @@ class Options:
     load_iter: int = 0
     load_epoch: int = 0
     print_freq: int = 80
-    batch_size: int = 1
+    batch_size: int = 8
     display_freq: int = 80
     update_html_freq: int = 1000
     save_latest_freq: int = 5000
@@ -71,14 +71,14 @@ class Options:
 @dataclass
 class TrainOptions(Options):
     isTrain: bool = True
-    continue_train: bool = True
-    epoch_count: int = 85
-    load_epoch: int = 85
+    continue_train: bool = False
+    epoch_count: int = 0
+    load_epoch: int = 0
 
 @dataclass
 class TestOptions(Options):
     isTrain: bool = False
-    load_epoch: int = 85
+    load_epoch: int = 0
     num_threads = 0   
     batch_size = 1    
     serial_batches = True  
