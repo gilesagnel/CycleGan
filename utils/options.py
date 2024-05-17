@@ -32,7 +32,7 @@ class Options:
     load_iter: int = 0
     load_epoch: int = 0
     print_freq: int = 80
-    batch_size: int = 8
+    batch_size: int = 4
     display_freq: int = 80
     update_html_freq: int = 1000
     save_latest_freq: int = 5000

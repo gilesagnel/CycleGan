@@ -29,8 +29,9 @@ class CycleGan():
         self.loss_names = ['D_A', 'G_A', 'cycle_A', 'idt_A', 'D_B', 'G_B', 'cycle_B', 'idt_B']
         self.visual_names = ['real_A', 'fake_B', 'rec_A', 'real_B', 'fake_A', 'rec_B']
         
-        if self.isTrain and self.opt.lambda_identity > 0.0:  
-            self.visual_names.extend(['idt_B','idt_A'])
+        if self.isTrain and self.opt.lambda_identity > 0.0: 
+            self.visual_names.insert(3, 'idt_A') 
+            self.visual_names.insert(7, 'idt_B') 
 
         self.model_names = ['G_A', 'G_B']
         if self.isTrain:
