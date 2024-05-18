@@ -63,7 +63,7 @@ def get_transform(preprocess, load_size=None, crop_size=None):
         osize = [load_size, load_size]
         transform_list.append(transforms.Resize(osize, transforms.InterpolationMode.BICUBIC))
         transform_list.append(transforms.RandomCrop(crop_size))
-        
+        transform_list.append(transforms.RandomHorizontalFlip())
     
     transform_list += [transforms.ToTensor(),
                        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]

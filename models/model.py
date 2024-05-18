@@ -15,6 +15,7 @@ from torch.nn import init
 from torch.optim import lr_scheduler
 import os
 from collections import OrderedDict
+from utils import util
 
 
 class CycleGan():
@@ -30,8 +31,8 @@ class CycleGan():
         self.visual_names = ['real_A', 'fake_B', 'rec_A', 'real_B', 'fake_A', 'rec_B']
         
         if self.isTrain and self.opt.lambda_identity > 0.0: 
-            self.visual_names.insert(3, 'idt_A') 
-            self.visual_names.insert(7, 'idt_B') 
+            self.visual_names.insert(3, 'idt_B') 
+            self.visual_names.insert(7, 'idt_A') 
 
         self.model_names = ['G_A', 'G_B']
         if self.isTrain:
@@ -131,7 +132,7 @@ class CycleGan():
         errors_ret = OrderedDict()
         for name in self.loss_names:
             if isinstance(name, str):
-                errors_ret[name] = float(getattr(self, 'loss_' + name))  # float(...) works for both scalar tensor and float number
+                errors_ret[name] = float(getattr(self, 'loss_' + name))  
         return errors_ret
     
     def save_networks(self, epoch):
@@ -230,8 +231,10 @@ class CycleGan():
         self.loss_G = (self.loss_G_A + self.loss_G_B + 
                     self.loss_cycle_A + self.loss_cycle_B + 
                     self.loss_idt_A + self.loss_idt_B)
-
         self.loss_G.backward()
+        # with torch.no_grad():
+        #     util.diagnose_network(self.netG_A, "netG_A")
+        #     util.diagnose_network(self.netG_B, "netG_A")
 
     def optimize_parameters(self):
         # Forward pass
@@ -248,6 +251,9 @@ class CycleGan():
         self.optimizer_D.zero_grad()
         self.backward_D_A()
         self.backward_D_B()
+        # with torch.no_grad():
+        #     util.diagnose_network(self.netD_A, "netD_A")
+        #     util.diagnose_network(self.netD_B, "netD_A")
         self.optimizer_D.step()
 
 

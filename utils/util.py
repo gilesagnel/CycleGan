@@ -56,6 +56,18 @@ def check_image_dimensions(folder_path):
                 print(f"Error processing {filename}: {e}")
     return image_dimensions
 
+def diagnose_network(net, name='network'):
+    mean = 0.0
+    count = 0
+    for param in net.parameters():
+        if param.grad is not None:
+            mean += torch.mean(torch.abs(param.grad.data))
+            count += 1
+    if count > 0:
+        mean = mean / count
+    print(name)
+    print(mean)
+
 
 class HTML:
     """This HTML class allows us to save images and write texts into a single HTML file.
